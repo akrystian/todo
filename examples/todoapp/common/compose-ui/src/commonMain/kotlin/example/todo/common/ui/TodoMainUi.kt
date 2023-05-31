@@ -11,13 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -34,13 +28,18 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import example.todo.common.main.TodoItem
 import example.todo.common.main.TodoMain
+import kotlin.reflect.KFunction1
+import kotlin.reflect.KFunction2
 
 @Composable
 fun TodoMainContent(component: TodoMain) {
     val model by component.models.subscribeAsState()
 
     Column {
-        TopAppBar(title = { Text(text = "Todo List") })
+
+        Box {
+            Clock()
+        }
 
         Box(Modifier.weight(1F)) {
             TodoList(
@@ -57,6 +56,47 @@ fun TodoMainContent(component: TodoMain) {
             onTextChanged = component::onInputTextChanged
         )
     }
+}
+
+@Composable
+private fun Clock() {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
+        Text(
+            text = AnnotatedString("00:00"),
+            modifier = Modifier.weight(1F).align(Alignment.CenterVertically),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)) {
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.align(Alignment.CenterVertically)
+        ) {
+            Text("Regular")
+        }
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.align(Alignment.CenterVertically)
+        ) {
+            Text("Short Break")
+        }
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.align(Alignment.CenterVertically)
+        ) {
+            Text("Long Break")
+        }
+
+    }
+
 }
 
 @Composable
